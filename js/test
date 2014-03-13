@@ -1,0 +1,162 @@
+// /*******************
+//  ***** Constants *****
+//  *********************/
+// var BOARD_WIDTH = 5;
+// var BOARD_HEIGHT = 6;
+// var GAME_WIDTH = 800;
+// var GAME_HEIGHT = 600;
+// var NUM_TILES = 5;
+// var MARGIN_X = 100;
+// var MARGIN_Y = 150;
+
+// var texture_list = [];
+
+// /************************
+//  ***** Global State *****
+//  ************************/
+// var board = [];
+// var tiles = [];
+// var m = new M();
+
+// var renderer;
+// var stage;
+
+// /**********************************
+//  ***** Game Functions [LOGIC] *****
+//  **********************************/
+// function move_row(row,delta)	{
+// 	if (delta > 0)	{	// forward shift
+// 		board[row] = m.shift_forward_n(board[row],delta);
+// 	}
+// 	else	{	// backward shift
+// 		board[row] = m.shift_backward_n(board[row],delta*-1);
+// 	}
+// }
+
+// function move_col(col,delta)	{
+// 	var temp = [];
+
+// 	for (var i=0; i<BOARD_HEIGHT; i++)	{
+// 		temp[i] = board[i][col];
+// 	}
+
+// 	if (delta > 0)	{	// forward shift
+// 		temp = m.shift_forward_n(temp,delta);
+// 	}
+// 	else	{
+// 		temp = m.shift_backward_n(temp,delta*-1);		
+// 	}
+
+// 	for (var i=0; i<BOARD_HEIGHT; i++)	{
+// 		board[i][col] = temp[i];
+// 	}	
+// }
+
+// // NOTE: perhaps combine replace_row + replace_col?
+// function replace_row(row, a, b)	{
+// 	// TODO: just put new tiles in place of tiles a-b
+// }
+// function replace_col(col, a, b)	{
+// 	// TODO: just put new tiles in place of tiles a-b
+// }
+
+// function has_match()	{
+// 	// TODO: check if there is a winning row (5+)
+// 	// if there is:
+// 	//   TODO: replace that row
+// 	//   TODO: score accordingly
+// }
+
+// function new_board()	{
+// 	for (var r=0; r<BOARD_HEIGHT; r++)	{
+// 		board[r] = [];
+// 		for (var c=0; c<BOARD_WIDTH; c++)	{
+// 			board[r][c] = Math.floor(Math.random()*NUM_TILES);
+// 		}
+// 	}
+// }
+
+// /************************************
+//  ***** Game Functions [DISPLAY] *****
+//  ************************************/
+
+// function init_texture_list()	{
+// 	texture_list[0] = new PIXI.Texture.fromImage("assets/t1.png");
+// 	texture_list[1] = new PIXI.Texture.fromImage("assets/t2.png");
+// 	texture_list[2] = new PIXI.Texture.fromImage("assets/t3.png");
+// 	texture_list[3] = new PIXI.Texture.fromImage("assets/t4.png");
+// 	texture_list[4] = new PIXI.Texture.fromImage("assets/t5.png");
+// }
+
+// function init()	{
+// 	//init_texture_list();
+// }
+
+// function update()	{
+// 	//requestAnimFrame(update);
+// 	//display_board();
+// 	renderer.render(stage);
+// }
+
+// function display_board()	{
+// 	for (var r=0; r<BOARD_HEIGHT; r++)	{
+// 		for (var c=0; c<BOARD_WIDTH; c++)	{
+// 			var tempTile = new PIXI.Sprite(texture_list[board[r][c]]);
+
+// 			tempTile.position.x = c*50 + MARGIN_X;
+// 			tempTile.position.y = r*50 + MARGIN_Y;
+// 			tempTile.anchor.x = 0.5;
+// 			tempTile.anchor.y = 0.5;
+// 			tiles.push({sprite:tempTile, x:tempTile.position.x, y:tempTile.position.y});
+// 			stage.addChild(tempTile);
+// 			// console.log(r);
+// 		}
+// 	}
+// }
+
+/**********************************
+ ***** Game Functions [INPUT] *****
+ **********************************/
+
+$(document).ready(function()	{
+	// create an new instance of a pixi stage
+	var stage = new PIXI.Stage(0x66FF99);
+
+	// create a renderer instance
+	var renderer = PIXI.autoDetectRenderer(400, 300);
+
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);
+
+	requestAnimFrame( animate );
+
+	// create a texture from an image path
+	var texture = PIXI.Texture.fromImage("t2.png");
+	// create a new Sprite using the texture
+	var bunny = new PIXI.Sprite(texture);
+
+	// center the sprites anchor point
+	bunny.anchor.x = 0.5;
+	bunny.anchor.y = 0.5;
+
+	// move the sprite t the center of the screen
+	bunny.position.x = 200;
+	bunny.position.y = 150;
+
+	stage.addChild(bunny);
+
+	function animate() {
+
+	    requestAnimFrame( animate );
+
+	    // just for fun, lets rotate mr rabbit a little
+	    bunny.rotation += 0.1;
+		
+	    // render the stage   
+	    renderer.render(stage);
+	}
+	// init(this);
+	
+	// new_board();
+	// display_board();
+});
